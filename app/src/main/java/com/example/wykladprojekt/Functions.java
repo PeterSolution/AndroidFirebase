@@ -21,6 +21,7 @@ public class Functions {
             gameData.put("gracz1", gamer1);  // pierwszy gracz to twórca gry
             gameData.put("gracz2", gamer2);    // drugi gracz - początkowo pusty
             // Inicjalizacja wszystkich pól gry jako puste
+            gameData.put("tura","0");
             gameData.put("pole1", "0");
             gameData.put("pole2", "0");
             gameData.put("pole3", "0");
@@ -54,10 +55,9 @@ public class Functions {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> gameData = new HashMap<>();
 
-        // Inicjalizacja danych gry zgodnie z modelem
-        gameData.put("gracz1", gamer1);  // pierwszy gracz to twórca gry
-        gameData.put("gracz2", gamer2);    // drugi gracz - początkowo pusty
-        // Inicjalizacja wszystkich pól gry jako puste
+        gameData.put("gracz1", gamer1);
+        gameData.put("gracz2", gamer2);
+        gameData.put("tura","0");
         gameData.put("pole1", "0");
         gameData.put("pole2", "0");
         gameData.put("pole3", "0");
@@ -148,22 +148,18 @@ public class Functions {
     public void deletegame(String gamename) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // Znajdź i usuń dokument
-        db.collection(gamename)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    // Iteruj przez wszystkie znalezione dokumenty i usuń je
-                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        document.getReference().delete()
-                                .addOnFailureListener(e -> {
-                                    System.out.println("Error deleting document: " + e.getMessage());
-                                });
-                    }
+        // Usuń pojedynczy dokument
+        db.collection("game")           // nazwa kolekcji
+                .document(gamename)     // nazwa dokumentu do usunięcia
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    System.out.println("Document successfully deleted");
                 })
                 .addOnFailureListener(e -> {
-                    System.out.println("Document do not exist: " + e.getMessage());
+                    System.out.println("Error deleting document: " + e.getMessage());
                 });
     }
+
     public boolean isendofgame3x3(String namegame){
         int[] tab=new int[9];
 
@@ -261,23 +257,47 @@ public class Functions {
     public interface OnAdminLoadedListener {
         void onDataLoaded(AdminModel data);
     }
-    public String generatecode3x3(){
+    public String generatecode3x3() {
         String code = "";
-        for(int i = 0; i < 5; i++) {
-            Random random = null;
-            code =code+ (char)(random.nextInt(26) + 'A');  // 'A' to 65 w ASCII
-
+        Random random = new Random(); // Inicjalizacja Random
+        for (int i = 0; i < 5; i++) {
+            code += (char) (random.nextInt(26) + 'A');  // 'A' to 65 w ASCII
         }
         return code;
     }
     public String generatecode5x5(){
         String code = "";
+        Random random = null;
         for(int i = 0; i < 6; i++) {
-            Random random = null;
             code =code+ (char)(random.nextInt(26) + 'A');  // 'A' to 65 w ASCII
 
         }
         return code;
+    }
+    public void updateGameData5x5(Context ctx, String nameofgame, DataModel5x5 newData, OnUpdateListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("game")
+                .document(nameofgame)
+                .set(newData)
+                .addOnSuccessListener(aVoid -> {
+                    listener.onUpdateSuccess();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(ctx,"Error",Toast.LENGTH_LONG).show();
+                });
+    }
+
+    public interface OnUpdateListener {
+        void onUpdateSuccess();
+    }
+
+    public void updateGameData3x3(Context ctx, String nameofgame, DataModel3x3 newData) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("game")
+                .document(nameofgame)
+                .set(newData);
     }
 
 

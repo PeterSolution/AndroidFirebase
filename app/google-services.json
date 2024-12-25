@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "980928775509",
+    "firebase_url": "https://wykkalprojectwb-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "wykkalprojectwb",
+    "storage_bucket": "wykkalprojectwb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980928775509:android:e7cedf35d7e464a9841bdc",
+        "android_client_info": {
+          "package_name": "com.example.firebasetest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGEws3bRKuFAZD8ktN5sX3xmDMWGjTGvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980928775509:android:f4fbb71e6423d60f841bdc",
+        "android_client_info": {
+          "package_name": "com.example.wykladprojekt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGEws3bRKuFAZD8ktN5sX3xmDMWGjTGvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

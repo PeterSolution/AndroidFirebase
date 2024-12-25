@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                                     if (data != null) {
                                         Intent intent = new Intent(MainActivity.this, Gra.class);
                                         intent.putExtra("key", kodbox.getText().toString());
+                                        intent.putExtra("gamer2",nazwagraczabox.getText().toString());
+                                        intent.putExtra("you", "1");
                                         startActivity(intent);
                                     }
                                     else{
@@ -72,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                                         if (data != null) {
                                             Intent intent = new Intent(MainActivity.this, Gra.class);
                                             intent.putExtra("key", kodbox.getText().toString());
+                                            intent.putExtra("gamer2",nazwagraczabox.getText().toString());
+                                            intent.putExtra("you", "1");
                                             startActivity(intent);
                                         }
                                         else{

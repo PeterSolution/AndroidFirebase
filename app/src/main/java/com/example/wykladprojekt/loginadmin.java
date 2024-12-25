@@ -79,21 +79,32 @@ public class loginadmin extends AppCompatActivity {
             selectedItem = items.get(position);
             message.setText("Wybrano gre: "+selectedItem);
         });
-        buttonlogin=(Button) findViewById(R.id.creategameButton);
+        buttonlogin=(Button) findViewById(R.id.creategameButton2);
         buttonlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if((loginview.getText().toString().equals(adminlogin))&&(hasloview.getText().toString().equals(adminpassword))){
                     try {
+                        Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_LONG).show();
                         if (selectedItem.equals("3x3")) {
-//                            Toast.makeText(getApplicationContext(), "aaa", Toast.LENGTH_LONG).show();
-                            functions.creategame3x3(getApplicationContext(),"admin","",functions.generatecode3x3());
-                            
+
+                            String code=functions.generatecode3x3();
+                            functions.creategame3x3(getApplicationContext(),"admin","",code);
+
+                            Intent intent2=new Intent(loginadmin.this, Gra.class);
+                            intent2.putExtra("key", code);
+                            intent2.putExtra("you", "0");
+                            startActivity(intent2);
                         } else {
                             if (selectedItem.equals("5x5")) {
 //                                Toast.makeText(getApplicationContext(), "bbb", Toast.LENGTH_LONG).show();
-
+                                String code=functions.generatecode5x5();
+                                functions.creategame5x5(getApplicationContext(),"admin","",code);
+                                Intent intent=new Intent(loginadmin.this, gra5x5.class);
+                                intent.putExtra("key", code);
+                                intent.putExtra("you", "0");
+                                startActivity(intent);
                             }
                         }
                     }
